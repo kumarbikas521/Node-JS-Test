@@ -43,19 +43,19 @@ async function payloadValidation(movieData, res) {
 app.get('/movies', async (req, res) => {
     return new Promise(async (resolve, reject) => {
         var con = await getConnectionPool();
-        var count;
-        try {
-            count = wordsToNumbers(req.query.query)
-        } catch (error) {
-            response(400, {
-                message: 'Please provide the counting properly!!!'
-            }, res);
-            return;
-        }
+        var MovieName =req.query.query;
+        // try {
+        //     count = wordsToNumbers(req.query.query)
+        // } catch (error) {
+        //     response(400, {
+        //         message: 'Please provide the counting properly!!!'
+        //     }, res);
+        //     return;
+        // }
         if (con != null) {
             try {
-                console.log('No of record requested : ', count);
-                await con.connection.collection(process.env.COLLECTION_NAME).find().limit(count).toArray(function (err, result) {
+               // console.log('No of record requested : ', count);
+            await con.connection.collection(process.env.COLLECTION_NAME).find({name: { $regex: MovieName }}).toArray(function (err, result) {
                     if (err) throw err;
                    // console.log(result);
                   //  con.connection.close();
