@@ -43,7 +43,7 @@ async function payloadValidation(movieData, res) {
 app.get('/movies', async (req, res) => {
     return new Promise(async (resolve, reject) => {
         var con = await getConnectionPool();
-        var MovieName =req.query.query;
+        var MovieName =req.query.name;
         // try {
         //     count = wordsToNumbers(req.query.query)
         // } catch (error) {
